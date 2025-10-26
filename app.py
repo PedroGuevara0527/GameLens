@@ -1,3 +1,5 @@
+#Download APIs to make program work
+#pip install Flask,pip install Pillow, pip install google-genai, pip install nba_api, pip install pandas
 from flask import Flask, request, jsonify, render_template, send_from_directory
 import os
 import uuid
