@@ -32,7 +32,6 @@ def upload():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(file_path)
 
-    # Call your friend's logic to build the paragraph
     player_info = get_player_info(file_path, sport)
 
     return jsonify({

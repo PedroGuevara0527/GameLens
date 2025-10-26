@@ -1,5 +1,4 @@
 # player_backend.py
-# Updated backend for Flask integration
 
 import time
 import pandas as pd
@@ -12,8 +11,6 @@ from nba_api.stats.endpoints import (
 )
 from nba_api.stats.static import players
 
-# Gemini client
-# NOTE: The API key here is an example and should be retrieved securely in a real application.
 client = genai.Client(api_key="AIzaSyD-jnak65x-Wva2PdSVWCx9Vf3dJLjZjS8")
 
 CURRENT_SEASON = '2025-26'
@@ -25,8 +22,6 @@ def get_player_info(image_path, sport):
     return a dictionary with the statistical summary and the Instagram caption
     as two separate fields.
     """
-
-    # Helper function for structured error return
     def error_response(msg):
         return {"status": "error", "message": msg}
 
@@ -120,7 +115,7 @@ def get_player_info(image_path, sport):
             if season_df.empty:
                 return error_response(f"Could not retrieve any career season data for {player}.")
             
-            # Calculate means and cast them to standard Python floats for formatting
+            
             avg_pts = float(season_df['PTS'].mean())
             avg_ast = float(season_df['AST'].mean())
             avg_reb = float(season_df['REB'].mean())
@@ -138,7 +133,6 @@ def get_player_info(image_path, sport):
             }
         
         # --- Generate Instagram-style Caption with Gemini ---
-        # NOTE: Using repr() on the dictionary ensures the prompt sees the data structure clearly
         caption_resp = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=[
@@ -159,7 +153,6 @@ def get_player_info(image_path, sport):
 
         caption_output = f"Instagram Caption: {caption}"
 
-        # Return a dictionary with the structured output
         return {
             "status": "success",
             "stats_summary": stats_summary,
